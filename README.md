@@ -54,7 +54,15 @@ Create the virtual environment for safe and secure operations, building project 
     python3 -m pip install -e . -r requirements-test.txt -r requirements-extra.tx
 ```
 
+After the successful deployment, To install vkMan, a real-time monitoring of various aspects of your system such as CPU, memory, disk, network usage etc via a web interface or command line interface. It is easy to install and use and can be customized to show only the information that you are interested in.
+
+```shell
+    $ cd vkMan-*
+    # python setup.py install
+```
+
 # USAGE
+
 ```
 usage: memray [-h] [-v] {run,flamegraph,table,live,tree,parse,summary,stats} ...
 
@@ -82,4 +90,76 @@ optional arguments:
   -h, --help            Show this help message and exit
   -v, --verbose         Increase verbosity. Option is additive and can be specified up to 3 times
 
+```
+
+<hr>
+
+##vkMan
+
+For the standalone mode, just run:
+
+``` console
+$ ./vkMan.sk
+```
+
+For the Web server mode, run:
+
+``` console
+$ ./vkMan.sk -w
+```
+
+and enter the URL `http://<ip>:61208` in your favorite web browser.
+
+For the client/server mode, run:
+
+``` console
+$ ./vkMan.sk -s
+```
+
+on the server side and run:
+
+``` console
+$ ./vkMan.sk -c <ip>
+```
+
+on the client one.
+
+You can also detect and display all Glances servers available on your
+network or defined in the configuration file:
+
+``` console
+$ ./vkMan.sk --browser
+```
+
+You can also display raw stats on stdout:
+
+``` console
+$ ./vkMan.sk --stdout cpu.user,mem.used,load
+cpu.user: 30.7
+mem.used: 3278204928
+load: {'cpucore': 4, 'min1': 0.21, 'min5': 0.4, 'min15': 0.27}
+cpu.user: 3.4
+mem.used: 3275251712
+load: {'cpucore': 4, 'min1': 0.19, 'min5': 0.39, 'min15': 0.27}
+...
+```
+
+or in a CSV format thanks to the stdout-csv option:
+
+``` console
+$ ./vkMan.sk --stdout-csv now,cpu.user,mem.used,load
+now,cpu.user,mem.used,load.cpucore,load.min1,load.min5,load.min15
+2018-12-08 22:04:20 CEST,7.3,5948149760,4,1.04,0.99,1.04
+2018-12-08 22:04:23 CEST,5.4,5949136896,4,1.04,0.99,1.04
+...
+```
+
+or in a JSON format thanks to the stdout-json option (attribute not
+supported in this mode in order to have a real JSON object in output):
+
+``` console
+$ ./vkMan.sk --stdout-json cpu,mem
+cpu: {"total": 29.0, "user": 24.7, "nice": 0.0, "system": 3.8, "idle": 71.4, "iowait": 0.0, "irq": 0.0, "softirq": 0.0, "steal": 0.0, "guest": 0.0, "guest_nice": 0.0, "time_since_update": 1, "cpucore": 4, "ctx_switches": 0, "interrupts": 0, "soft_interrupts": 0, "syscalls": 0}
+mem: {"total": 7837949952, "available": 2919079936, "percent": 62.8, "used": 4918870016, "free": 2919079936, "active": 2841214976, "inactive": 3340550144, "buffers": 546799616, "cached": 3068141568, "shared": 788156416}
+...
 ```
