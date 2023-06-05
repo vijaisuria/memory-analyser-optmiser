@@ -94,7 +94,7 @@ optional arguments:
 
 <hr>
 
-##vkMan
+## vkMan
 
 For the standalone mode, just run:
 
